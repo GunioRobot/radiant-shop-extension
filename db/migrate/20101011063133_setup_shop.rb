@@ -12,7 +12,7 @@ class SetupShop < ActiveRecord::Migration
       t.integer  "updated_by_id"
       t.integer  "page_id"
     end
-    
+
     create_table "shop_categories", :force => true do |t|
       t.integer  "product_layout_id"
       t.datetime "created_at"
@@ -21,7 +21,7 @@ class SetupShop < ActiveRecord::Migration
       t.integer  "updated_by_id"
       t.integer  "page_id"
     end
-    
+
     create_table "shop_product_attachments", :force => true do |t|
       t.integer "position",      :default => 1
       t.integer "image_id"
@@ -46,7 +46,7 @@ class SetupShop < ActiveRecord::Migration
     end
     add_index "shop_orders", ["customer_id"], :name => "index_shop_orders_on_customer_id"
     add_index "shop_orders", ["status"], :name => "index_shop_orders_on_status"
-    
+
     create_table "shop_line_items", :force => true do |t|
       t.integer  "quantity",      :default => 1
       t.integer  "item_id"
@@ -60,7 +60,7 @@ class SetupShop < ActiveRecord::Migration
     end
     add_index "shop_line_items", ["item_id"], :name => "index_shop_line_items_on_item_id"
     add_index "shop_line_items", ["order_id"], :name => "index_shop_line_items_on_order_id"
-    
+
     create_table "shop_addresses", :force => true do |t|
       t.string   "email"
       t.string   "name"

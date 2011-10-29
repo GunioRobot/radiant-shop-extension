@@ -12,17 +12,17 @@ end
 require "#{RADIANT_ROOT}/spec/spec_helper"
 
 unless defined? SHOP_ROOT
-  
+
   SHOP_ROOT = ShopExtension.root + '/spec'
-  
+
   Dataset::Resolver.default << (SHOP_ROOT + "/datasets")
-  
+
   if File.directory?(SHOP_ROOT + "/matchers")
     Dir[SHOP_ROOT + "/matchers/**/*.rb"].each {|file| require file }
   end
-  
+
   Spec::Runner.configure do |config|
     config.mock_with :rr
   end
-  
+
 end

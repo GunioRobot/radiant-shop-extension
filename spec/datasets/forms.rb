@@ -1,15 +1,15 @@
 class FormsDataset < Dataset::Base
-  
+
   uses :pages, :shop_orders
-  
+
   def load
-    create_record :form, :checkout, 
+    create_record :form, :checkout,
       :title    => 'Checkout',
       :body     => checkout_body,
       :config   => checkout_config,
       :content  => ''
   end
-  
+
   def checkout_body
 <<-BODY
 <r:shop:cart>
@@ -49,7 +49,7 @@ class FormsDataset < Dataset::Base
 </r:shop:cart>
 BODY
   end
-  
+
   def checkout_config
 <<-CONFIG
 checkout:
@@ -60,20 +60,20 @@ checkout:
       login: 123456
 CONFIG
   end
-  
+
   helpers do
     def mock_page_with_request_and_data
       @page     = pages(:home)
-      
+
       @request  = OpenStruct.new({
         :session => {}
       })
       @data     = {}
-      
+
       stub(@page).data    { @data }
       stub(@page).request { @request }
     end
-    
+
     def mock_response
       @response = OpenStruct.new({
         :result => {
@@ -82,7 +82,7 @@ CONFIG
       })
       mock(Forms::Tags::Responses).current(anything,anything) { @response }
     end
-    
+
     def mock_valid_form_checkout_request
       @form = forms(:checkout)
       @form.page = pages(:home)
@@ -108,9 +108,9 @@ CONFIG
           }
         }
       }
-      
+
       @data = {
-        :credit_card => { 
+        :credit_card => {
           :number       => '1',
           :name         => 'Mr. Joe Bloggs',
           :verification => '123',
@@ -126,10 +126,10 @@ CONFIG
           }
         }
       }
-      
+
       @request.session = { :shop_order => @order.id }
     end
-    
+
     def mock_valid_form_address_request
       @form = forms(:checkout)
       @form.page = pages(:home)
@@ -140,7 +140,7 @@ CONFIG
           :shipping  => true
         }
       }
-      
+
       @data = {
         :billing => {
           :id           => shop_billings(:order_billing).id,
@@ -168,7 +168,7 @@ CONFIG
 
       @request.session = { :shop_order => @order.id }
     end
-    
+
   end
-  
+
 end

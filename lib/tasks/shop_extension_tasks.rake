@@ -1,28 +1,28 @@
 namespace :radiant do
   namespace :extensions do
     namespace :shop do
-      
+
       desc "Runs the migration of the Shop extension"
       task :migrate => :environment do
         require 'radiant/extension_migrator'
-        
+
         # Migrate required extensions first
         ['Settings','Images','Forms','Users','DragOrder'].each do |name|
           extension = "#{name}Extension".pluralize.classify.constantize
           extension.migrator.migrate
         end
-        
+
         version = ENV["VERSION"] ? ENV["VERSION"].to_i : nil
         ShopExtension.migrator.migrate(version)
-        
+
         Rake::Task['db:schema:dump'].invoke
       end
-      
+
       desc "Runs the migration of the Shop extension"
       task :seed => :environment do
         load "#{ShopExtension.root}/db/seed.rb"
       end
-      
+
       desc "Copies public assets of the Shop to the instance public/ directory."
       task :update => :environment do
         is_svn_or_dir = proc {|path| path =~ /\.svn/ || File.directory?(path) }
@@ -41,14 +41,14 @@ namespace :radiant do
             cp file, local_tasks_path, :verbose => false
           end
         end
-      end  
-      
+      end
+
       desc "Syncs all available translations for this ext to the English ext master"
       task :sync => :environment do
         # The main translation root, basically where English is kept
         language_root = ShopExtension.root + "/config/locales"
         words = TranslationSupport.get_translation_keys(language_root)
-        
+
         Dir["#{language_root}/*.yml"].each do |filename|
           next if filename.match('_available_tags')
           basename = File.basename(filename, '.yml')

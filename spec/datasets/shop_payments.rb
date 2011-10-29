@@ -1,7 +1,7 @@
 class ShopPaymentsDataset < Dataset::Base
-  
+
   uses :shop_orders
-  
+
   def load
     create_record :shop_payments, :visa,
       :amount       => shop_orders(:several_items).price,

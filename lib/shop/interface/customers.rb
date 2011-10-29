@@ -1,14 +1,14 @@
 module Shop
   module Interface
     module Customers
-      
+
       def self.included(base)
         base.send :include, InstanceMethods
       end
-      
+
       module InstanceMethods
         attr_accessor :customers
-        
+
         protected
 
         def load_default_shop_customers_regions
@@ -28,7 +28,7 @@ module Shop
           end
         end
       end
-      
+
     end
   end
 end

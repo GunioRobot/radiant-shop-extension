@@ -1,16 +1,16 @@
 class Admin::Shop::Products::ImagesController < Admin::ResourceController
-  
+
   model_class Attachment
-  
+
   # GET /admin/shop/products/1/images
   # GET /admin/shop/products/1/images.js
   # GET /admin/shop/products/1/images.json                        AJAX and HTML
   #----------------------------------------------------------------------------
   def index
     error = 'This Product has no Images.'
-    
+
     @shop_product = ShopProduct.find(params[:product_id])
-    
+
     unless @shop_product.images.empty?
       respond_to do |format|
         format.html { redirect_to edit_admin_shop_product_path(@shop_product) }
@@ -19,7 +19,7 @@ class Admin::Shop::Products::ImagesController < Admin::ResourceController
       end
     else
       respond_to do |format|
-        format.html { 
+        format.html {
           flash[:error] = error
           redirect_to edit_admin_shop_product_path(@shop_product)
         }
@@ -38,12 +38,12 @@ class Admin::Shop::Products::ImagesController < Admin::ResourceController
     error  = 'Could not sort Images.'
     begin
       @shop_product = ShopProduct.find(params[:product_id])
-      
+
       @images = CGI::parse(params[:attachments])['product_attachments[]']
       @images.each_with_index do |id, index|
         Attachment.find(id).update_attributes!({ :position => index+1 })
       end
-      
+
       respond_to do |format|
         format.html {
           redirect_to edit_admin_shop_product_path(@shop_product)
@@ -62,7 +62,7 @@ class Admin::Shop::Products::ImagesController < Admin::ResourceController
       end
     end
   end
-  
+
   # POST /admin/shop/products/1/images
   # POST /admin/shop/products/1/images.js
   # POST /admin/shop/products/1/images.json                       AJAX and HTML
@@ -70,18 +70,18 @@ class Admin::Shop::Products::ImagesController < Admin::ResourceController
   def create
     notice = 'Successfully created Image.'
     error  = 'Unable to create Image.'
-    
+
     begin
       @shop_product = ShopProduct.find(params[:product_id])
-      
+
       if params[:image]
         @image = Image.create!(params[:image])
       elsif params[:attachment]
         @image = Image.find(params[:attachment][:image_id])
       end
-      
+
       @attachment = Attachment.create!(:image => @image, :page => @shop_product.page)
-      
+
       respond_to do |format|
         format.html {
           redirect_to edit_admin_shop_product_path(@shop_product)
@@ -91,7 +91,7 @@ class Admin::Shop::Products::ImagesController < Admin::ResourceController
       end
     rescue
       respond_to do |format|
-        format.html { 
+        format.html {
           flash[:error] = error
           redirect_to edit_admin_shop_product_path(@shop_product)
         }
@@ -100,7 +100,7 @@ class Admin::Shop::Products::ImagesController < Admin::ResourceController
       end
     end
   end
-  
+
   # DELETE /admin/shop/products/1/images/1
   # DELETE /admin/shop/products/1/images/1.js
   # DELETE /admin/shop/products/1/images/1.json                   AJAX and HTML
@@ -112,7 +112,7 @@ class Admin::Shop::Products::ImagesController < Admin::ResourceController
       @shop_product = ShopProduct.find(params[:product_id])
       @image = @attachment.image
       @attachment.destroy
-      
+
       respond_to do |format|
         format.html {
           redirect_to edit_admin_shop_product_path(@shop_product)

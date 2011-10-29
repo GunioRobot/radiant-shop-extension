@@ -1,6 +1,6 @@
 - form_for [:admin, @shop_category], :html => {'data-onsubmit_status'=>"Saving Changes&#8230;"} do |f|
-  
-  - render_region :form do |form|  
+
+  - render_region :form do |form|
     - form.inputs do
       = render :partial => '/admin/shop/categories/edit/inputs',  :locals => { :f => f }
 

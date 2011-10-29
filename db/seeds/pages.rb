@@ -1,6 +1,6 @@
 unless Page.first
   Radiant::Config['defaults.page.status'] = 'Published'
-  
+
   home = Page.new
   home.title = 'Shop'
   home.slug = '/'
@@ -8,8 +8,8 @@ unless Page.first
   home.class_name = 'ShopPage'
   home.status_id = 100
   home.parts = [
-    PagePart.create({ 
-      :name      => 'body', 
+    PagePart.create({
+      :name      => 'body',
       :filter_id => 'Textile',
       :content   => <<-CONTENT
 "category":/category
@@ -35,7 +35,7 @@ cart.status_id  = 100
 cart.parts      = [
   PagePart.create({
     :name    => 'body',
-    :content => "<r:snippet name='Cart' />" 
+    :content => "<r:snippet name='Cart' />"
   })
 ]
 cart.save

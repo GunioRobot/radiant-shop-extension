@@ -4,15 +4,15 @@ document.observe("dom:loaded", function() {
 })
 
 var ShopProductIndex = Class.create({
-  
+
   initialize: function() {
     this.sortCategories();
     this.sortProducts();
   },
-  
+
   sortCategories: function() {
     var route = shop.getRoute('sort_admin_shop_categories_path');
-    
+
     Sortable.create('categories', {
       overlap:    'vertical',
       only:       'category',
@@ -27,16 +27,16 @@ var ShopProductIndex = Class.create({
       }
     })
   },
-  
+
   sortProducts: function() {
     var route = shop.getRoute('sort_admin_shop_products_path');
-    
+
     var categories = new Array();
     $$('li.category').each(function(el) {
       categories.push($(el).id + '_products');
     })
-    
-    categories.each(function(category) { 
+
+    categories.each(function(category) {
       Sortable.create(category, {
         overlap:      'vertical',
         only:         'product',
@@ -56,5 +56,5 @@ var ShopProductIndex = Class.create({
       })
     })
   }
-  
+
 })

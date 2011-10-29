@@ -4,13 +4,13 @@ require File.dirname(__FILE__) + "/../../../spec_helper"
 # Test for Shop Line Item Tags
 #
 describe Shop::Tags::Card do
-  
+
   dataset :pages
-  
+
   before :all do
     @page = pages(:home)
   end
-  
+
   it 'should describe these tags' do
     Shop::Tags::Card.tags.sort.should == [
       'form:card',
@@ -18,7 +18,7 @@ describe Shop::Tags::Card do
       'form:card:month',
       'form:card:year'].sort
   end
-  
+
   describe 'form:card:type' do
     context 'all cards' do
       it 'should output the card types' do
@@ -37,7 +37,7 @@ describe Shop::Tags::Card do
         @page.should render(tag).as(exp)
       end
     end
-    
+
     context 'except amex and diners' do
       it 'should output all except amex and diners' do
         tag = %{<r:form:card:type except="amex,diners" />}
@@ -51,7 +51,7 @@ describe Shop::Tags::Card do
         @page.should render(tag).as(exp)
       end
     end
-    
+
     context 'only amex and diners' do
       it 'should output all except amex' do
         tag = %{<r:form:card:type only="amex,diners" />}
@@ -66,7 +66,7 @@ describe Shop::Tags::Card do
       end
     end
   end
-  
+
   describe 'form:card:month' do
     it 'should output the card months' do
       tag = %{<r:form:card:month />}
@@ -88,7 +88,7 @@ describe Shop::Tags::Card do
       @page.should render(tag).as(exp)
     end
   end
-  
+
   describe 'form:card:year' do
     it 'should output the card years' do
       tag = %{<r:form:card:year />}
@@ -100,5 +100,5 @@ describe Shop::Tags::Card do
       @page.should render(tag).as(exp)
     end
   end
-  
+
 end

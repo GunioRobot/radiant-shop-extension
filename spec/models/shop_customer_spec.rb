@@ -1,14 +1,14 @@
 require File.dirname(__FILE__) + "/../spec_helper"
 
 describe ShopCustomer do
-  
+
   dataset :shop_customers, :shop_orders
 
   describe 'relationships' do
     before :each do
       @customer = shop_customers(:customer)
     end
-    
+
     context 'orders' do
       before :each do
         @order = shop_orders(:empty)
@@ -18,7 +18,7 @@ describe ShopCustomer do
         @customer.orders.include?(@order).should === true
       end
     end
-    
+
     context 'billing addresses' do
       before :each do
         @order = shop_orders(:several_items)
@@ -29,7 +29,7 @@ describe ShopCustomer do
         @customer.billings.include?(@order.billing).should === true
       end
     end
-    
+
     context 'shipping addresses' do
       before :each do
         @order = shop_orders(:several_items)
@@ -41,7 +41,7 @@ describe ShopCustomer do
       end
     end
   end
-  
+
   describe 'attributes' do
     before :each do
       @customer = shop_customers(:customer)
@@ -55,7 +55,7 @@ describe ShopCustomer do
       end
     end
   end
-  
+
   describe '#first_name' do
     before :each do
       @customer = ShopCustomer.new
@@ -79,9 +79,9 @@ describe ShopCustomer do
       end
     end
   end
-  
+
   describe '#last_name' do
-    before :each do      
+    before :each do
       @customer = ShopCustomer.new
     end
     context '1 word' do
@@ -103,5 +103,5 @@ describe ShopCustomer do
       end
     end
   end
-  
+
 end

@@ -1,5 +1,5 @@
 class ShopCustomersDataset < Dataset::Base
-  
+
   def load
     create_model :shop_customer, :customer,
       :name     => 'customer',
@@ -7,7 +7,7 @@ class ShopCustomersDataset < Dataset::Base
       :login    => 'customer',
       :password => 'radiant',
       :password_confirmation => 'radiant'
-      
+
     create_model :shop_customer, :bad_customer,
       :name     => 'bad customer',
       :email    => 'bad_customer@example.com',
@@ -15,7 +15,7 @@ class ShopCustomersDataset < Dataset::Base
       :password => 'radiant',
       :password_confirmation => 'radiant'
   end
-  
+
   helpers do
     def login_as(user)
       login_user = users(user)

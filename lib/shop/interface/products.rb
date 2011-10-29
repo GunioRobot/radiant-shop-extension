@@ -1,14 +1,14 @@
 module Shop
   module Interface
     module Products
-      
+
       def self.included(base)
         base.send :include, InstanceMethods
       end
-      
+
       module InstanceMethods
         attr_accessor :products
-        
+
         protected
 
         def load_default_shop_products_regions
@@ -30,7 +30,7 @@ module Shop
           end
         end
       end
-      
+
     end
   end
 end

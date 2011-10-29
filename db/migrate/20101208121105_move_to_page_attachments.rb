@@ -22,12 +22,12 @@ class MoveToPageAttachments < ActiveRecord::Migration
     add_index "shop_product_attachments", ["image_id"],   :name => "index_shop_product_attachments_on_image_id"
     add_index "shop_product_attachments", ["position"],   :name => "index_shop_product_attachments_on_position"
     add_index "shop_product_attachments", ["product_id"], :name => "index_shop_product_attachments_on_product_id"
-    
+
     Attachment.find_each do |a|
       if a.page.shop_product
         ShopProductAttachment.create(:image => a.image, :product => a.page.shop_product)
       end
     end
-    
+
   end
 end

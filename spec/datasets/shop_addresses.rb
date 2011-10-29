@@ -1,7 +1,7 @@
 class ShopAddressesDataset < Dataset::Base
-  
+
   uses :shop_orders
-  
+
   def load
     create_record :shop_billing, :order_billing,
       :name             => 'Billing Address',
@@ -18,7 +18,7 @@ class ShopAddressesDataset < Dataset::Base
       :postcode         => '1234',
       :addressable_id   => shop_orders(:several_items).id,
       :addressable_type => 'ShopOrder'
-      
+
     create_record :shop_shipping, :order_shipping,
       :name             => 'Shipping Address',
       :phone            => '1800 000 000',

@@ -9,19 +9,19 @@
         = order.line_items.count
         = order.line_items.count == 1 ? 'item' : 'items'
         = "(#{order.status})"
-      
+
       %br
-      
+
       - if order.billing.present?
         %h4 Billing
         %span.billing= render :partial => '/admin/shop/customers/edit/parts/address', :locals => { :address => order.billing }
-      
+
         %h4 Shipping
         %span.shipping= render :partial => '/admin/shop/customers/edit/parts/address', :locals => { :address => order.shipping }
       - else
         %h4 No Addresses
         The customer hasn't assigned any addresses to this order yet
-        
+
       %h4 Payment
       %span.payment
         - if order.paid?
@@ -29,5 +29,5 @@
           = order.payment.card_type
         - else
           This order hasn't been paid for yet
-      
+
       %hr

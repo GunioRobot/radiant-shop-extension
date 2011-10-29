@@ -1,5 +1,5 @@
 class TagsDataset < Dataset::Base
-  
+
   helpers do
     def mock_valid_tag_for_helper
       @tag = OpenStruct.new({
@@ -15,5 +15,5 @@ class TagsDataset < Dataset::Base
       })
     end
   end
-  
+
 end

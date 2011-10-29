@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + "/../../../spec_helper"
 
 describe Shop::Tags::Category do
-  
+
   dataset :pages, :shop_categories, :shop_products, :shop_attachments
 
   it 'should describe these tags' do
@@ -30,14 +30,14 @@ describe Shop::Tags::Category do
   before(:each) do
     @category = shop_categories(:bread)
   end
-  
+
   describe '<r:shop:categories>' do
     context 'categories exist' do
       it 'should render' do
         mock(Shop::Tags::Helpers).current_categories(anything) { [@category] }
         tag = %{<r:shop:categories>success</r:shop:categories>}
         exp = %{success}
-      
+
         @page.should render(tag).as(exp)
       end
     end
@@ -46,37 +46,37 @@ describe Shop::Tags::Category do
         mock(Shop::Tags::Helpers).current_categories(anything) { [] }
         tag = %{<r:shop:categories>success</r:shop:categories>}
         exp = %{success}
-      
+
         @page.should render(tag).as(exp)
       end
     end
   end
-  
+
   describe '<r:shop:categories:if_categories>' do
     context 'success' do
       it 'should render' do
         tag = %{<r:shop:categories:if_categories>success</r:shop:categories:if_categories>}
         exp = %{success}
-        
+
         @page.should render(tag).as(exp)
       end
     end
     context 'failure' do
       it 'should not render' do
         mock(Shop::Tags::Helpers).current_categories(anything) { [] }
-        
+
         tag = %{<r:shop:categories:if_categories>failure</r:shop:categories:if_categories>}
         exp = %{}
         @page.should render(tag).as(exp)
       end
     end
   end
-  
+
   describe '<r:shop:categories:unless_categories>' do
     context 'success' do
       it 'should render' do
         mock(Shop::Tags::Helpers).current_categories(anything) { [] }
-        
+
         tag = %{<r:shop:categories:unless_categories>success</r:shop:categories:unless_categories>}
         exp = %{success}
         @page.should render(tag).as(exp)
@@ -90,7 +90,7 @@ describe Shop::Tags::Category do
       end
     end
   end
-  
+
   describe '<r:shop:category:if_current>' do
     before :each do
       mock(Shop::Tags::Helpers).current_category(anything) { @category }
@@ -99,7 +99,7 @@ describe Shop::Tags::Category do
       it 'should expand' do
         tag = %{<r:shop:category:if_current>success</r:shop:category:if_current>}
         exp =  %{success}
-        
+
         @category.page.should render(tag).as(exp)
       end
     end
@@ -107,7 +107,7 @@ describe Shop::Tags::Category do
       it 'should expand' do
         tag = %{<r:shop:category:if_current>success</r:shop:category:if_current>}
         exp =  %{success}
-        
+
         @category.products.first.page.should render(tag).as(exp)
       end
     end
@@ -115,12 +115,12 @@ describe Shop::Tags::Category do
       it 'should not expand' do
         tag = %{<r:shop:category:if_current>failure</r:shop:category:if_current>}
         exp =  %{}
-        
+
         @page.should render(tag).as(exp)
       end
     end
   end
-  
+
   describe '<r:shop:category:unless_current>' do
     before :each do
       mock(Shop::Tags::Helpers).current_category(anything) { @category }
@@ -129,7 +129,7 @@ describe Shop::Tags::Category do
       it 'should not expand' do
         tag = %{<r:shop:category:unless_current>failure</r:shop:category:unless_current>}
         exp =  %{}
-        
+
         @category.page.should render(tag).as(exp)
       end
     end
@@ -137,7 +137,7 @@ describe Shop::Tags::Category do
       it 'should not expand' do
         tag = %{<r:shop:category:unless_current>failure</r:shop:category:unless_current>}
         exp =  %{}
-        
+
         @category.products.first.page.should render(tag).as(exp)
       end
     end
@@ -145,12 +145,12 @@ describe Shop::Tags::Category do
       it 'should expand' do
         tag = %{<r:shop:category:unless_current>success</r:shop:category:unless_current>}
         exp =  %{success}
-        
+
         @page.should render(tag).as(exp)
       end
     end
   end
-  
+
   describe 'simple attributes' do
     before :each do
       mock(Shop::Tags::Helpers).current_category(anything) { @category }
@@ -158,31 +158,31 @@ describe Shop::Tags::Category do
     it 'should render <r:id />' do
       tag = %{<r:shop:category:id />}
       exp = @category.id.to_s
-      
+
       @page.should render(tag).as(exp)
     end
     it 'should render <r:name />' do
       tag = %{<r:shop:category:name />}
       exp = @category.name
-      
+
       @page.should render(tag).as(exp)
     end
     it 'should render <r:handle />' do
       tag = %{<r:shop:category:handle />}
       exp = @category.handle
-      
+
       @page.should render(tag).as(exp)
     end
     it 'should render <r:slug />' do
       tag = %{<r:shop:category:slug />}
       exp = @category.slug
-      
+
       @page.should render(tag).as(exp)
     end
     it 'should render <r:url />' do
       tag = %{<r:shop:category:url />}
       exp = @category.url
-      
+
       @page.should render(tag).as(exp)
     end
     describe '<r:description />' do
@@ -194,42 +194,42 @@ describe Shop::Tags::Category do
       end
     end
   end
-  
+
   describe '<r:link />' do
     before :each do
       mock(Shop::Tags::Helpers).current_category(anything) { @category }
     end
-    
+
     context 'standalone' do
       it 'should render an anchor element' do
         tag = %{<r:shop:category:link />}
         exp = %{<a href="#{@category.url}">#{@category.name}</a>}
-        
+
         @page.should render(tag).as(exp)
       end
       it 'should assign attributes' do
         tag = %{<r:shop:category:link title="title" data-title="data-title"/>}
         exp = %{<a href="#{@category.url}" data-title="data-title" title="title">#{@category.name}</a>}
-        
-        @page.should render(tag).as(exp)          
+
+        @page.should render(tag).as(exp)
       end
     end
-    
+
     context 'wrapped' do
       it 'should render an anchor element' do
         tag = %{<r:shop:category:link>title</r:shop:category:link>}
         exp = %{<a href="#{@category.url}">title</a>}
-        
+
         @page.should render(tag).as(exp)
       end
     end
   end
-  
+
   describe '<r:shop:category:images>' do
     before :each do
       mock(Shop::Tags::Helpers).current_category(anything) { @category }
     end
-    
+
     context 'success' do
       it 'should open if images exist' do
         tag = %{<r:shop:category:images>success</r:shop:category:images>}
@@ -246,7 +246,7 @@ describe Shop::Tags::Category do
       before :each do
         @category.page.attachments.destroy_all { [] }
       end
-      it 'should render' do          
+      it 'should render' do
         tag = %{<r:shop:category:images>success</r:shop:category:images>}
         exp = %{success}
         @page.should render(tag).as(exp)
@@ -257,6 +257,6 @@ describe Shop::Tags::Category do
         @page.should render(tag).as(exp)
       end
     end
-  end  
-  
+  end
+
 end

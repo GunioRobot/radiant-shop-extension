@@ -5,5 +5,5 @@ class Admin::ShopsController < ApplicationController
   def index
     redirect_to admin_shop_products_path
   end
-  
+
 end

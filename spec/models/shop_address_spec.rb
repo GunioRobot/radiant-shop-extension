@@ -1,9 +1,9 @@
 require File.dirname(__FILE__) + "/../spec_helper"
 
 describe ShopAddress do
-  
+
   dataset :shop_addresses, :shop_orders
-  
+
   describe 'validations' do
     before :each do
       @address = shop_billings(:order_billing)
@@ -69,5 +69,5 @@ describe ShopAddress do
       end
     end
   end
-  
+
 end

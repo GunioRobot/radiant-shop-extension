@@ -7,7 +7,7 @@ add.body  = <<-BODY
 <r:shop:product>
   <input type="hidden" name="line_item[item_id]" value="<r:id />" />
   <input type="hidden" name="line_item[item_type]" value="ShopProduct" />
-  
+
   <input type="hidden" name="line_item[quantity]" value="1" />
   <input type="submit" name="add_to_cart" id="add_to_cart_<r:id />" value="Buy Now" />
 </r:shop:product>
@@ -30,7 +30,7 @@ update.body  = <<-BODY
 <r:item>
   <input type="hidden" name="_method" value="put" />
   <input type="hidden" name="line_item[id]" value="<r:item:id />" />
-  
+
   <input type="text" name="line_item[quantity]" value="<r:quantity />" />
   <input type="submit" name="add_to_cart" id="update_<r:id />" value="Update" />
 </r:item>
@@ -55,9 +55,9 @@ address.body  = <<-BODY
   <div id="billing" class="address">
     <r:address type='billing'>
       <h4>Address</h4>
-      
+
       <r:if_address><input type="hidden" name="billing[id]" value="<r:id />" /></r:if_address>
-      
+
       <ol class="address">
         <li id="billing_name_input" class="input required">
           <r:label for='billing[name]'>Full Name</r:label>
@@ -82,7 +82,7 @@ address.body  = <<-BODY
           <input type="text" name="billing[country]" value="<r:country/>" />
         </li>
       </ol>
-    </r:address>      
+    </r:address>
   </div>
 </r:shop:cart:items:if_items>
 
@@ -136,7 +136,7 @@ payment.body  = <<-BODY
       <r:submit value='Place Order' />
     </li>
   </ol>
-  
+
 </r:shop:cart:items:if_items>
 BODY
 payment.config = <<-CONFIG
